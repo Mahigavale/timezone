@@ -123,7 +123,7 @@ function App() {
           >
             {isNightUSA(nashuaTime) ? "🌙" : "☀️"}
           </span>
-          <h3 style={{ color: "#004d40" }}>Nashua, USA</h3>
+          <h3 style={{ color: "#004d40" }}>Nashua, USA(CEO's TIME)</h3>
           <p style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
             {nashuaTime.toLocaleTimeString()}
           </p>
