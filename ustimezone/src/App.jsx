@@ -27,6 +27,30 @@ function App() {
     const minutes = date.getMinutes();
     return hours > 18 || (hours === 18 && minutes >= 30);
   };
+  const isNightUSA = () => {
+  const now = new Date();
+
+  // Get the hours and minutes in Eastern Time
+  const formatter = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/New_York",
+    hour12: false,
+    hour: "numeric",
+    minute: "numeric",
+  });
+
+  const parts = formatter.formatToParts(now);
+  const hour = parseInt(parts.find(p => p.type === "hour").value, 10);
+  const minute = parseInt(parts.find(p => p.type === "minute").value, 10);
+
+  // Night is from 18:30 to 6:30
+  if (hour > 18 || (hour === 18 && minute >= 30)) return true; // after 6:30 PM
+  if (hour < 6 || (hour === 6 && minute < 30)) return true;     // before 6:30 AM
+
+  return false; // Otherwise, it’s day
+};
+
+
+
 
   return (
     <div
@@ -97,7 +121,7 @@ function App() {
               fontSize: "1.8rem",
             }}
           >
-            {isNight(nashuaTime) ? "🌙" : "☀️"}
+            {isNightUSA(nashuaTime) ? "🌙" : "☀️"}
           </span>
           <h3 style={{ color: "#004d40" }}>Nashua, USA</h3>
           <p style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
